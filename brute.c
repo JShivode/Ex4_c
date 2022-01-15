@@ -73,9 +73,9 @@ void tsp(char *data, size_t size){
       shuffle(arr, size);
   }
     if(min<10000)
-      printf("TSP shortest path:%d\n", min);
+      printf("TSP shortest path: %d \n", min);
     else 
-      printf("TSP shortest path:%d\n", -1);
+      printf("TSP shortest path: -1 \n");
     //free(data);
 }
 
@@ -138,7 +138,7 @@ int s(int a, int b,int silent){
   int result = brute(get_node_by_id(a), get_node_by_id(b));
   if (result == 10000)
      result = -1;
-    printf("Dijsktra shortest path:%d\n", result);   //we need this function to run silently..no prints!!   
+    printf("Dijsktra shortest path:%d \n", result);   //we need this function to run silently..no prints!!   
   return 0;
   }
   
