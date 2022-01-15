@@ -95,13 +95,9 @@ void buildGraph(char *data){
   ////first we will create nodes list. from input, no edges yet.
   int idx=0;
   
-  //printf("numOfNodes=%d\n",numOfNodes);
-  nodes = NULL;//malloc(sizeof(struct GRAPH_NODE_));
-  //if(nodes == NULL)
-    //  perror("memory erros:\n");
-  //nodes->edges = NULL;
-  //nodes->node_num = 0;
-  //nodes->next = NULL;
+  
+  nodes = NULL;
+  
   for(int i=0; i<numOfNodes;i++){
     pnode newNode = malloc(sizeof(struct GRAPH_NODE_));
     if(newNode == NULL)
