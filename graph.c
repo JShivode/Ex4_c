@@ -48,13 +48,13 @@ void interpret(char *data){
  }
  d = data;
 // counter+1 has number of cells in inputArray
- inputArray = calloc((counter), sizeof(int));
+ inputArray = calloc((counter+1), sizeof(int));
  inputLength = counter;
  int m = 1, i=0;
  while(*d != '\0' && *d != '\r' && *d != '\n')
  { //loop through all data string..
  if(*d == '\0') break;
- if(m == 1)
+ if(m == 1)                           //valgrind -s --leak-check=full --error-exitcode=1 ./main < inputs/input1.txt > /dev/null
  inputArray[i] = 0;
  
  if(isdigit(*d)){    
@@ -108,10 +108,7 @@ void buildGraph(char *data){
     newNode->next = nodes;
     nodes = newNode;
   }
-  /*printf("\ninputArray= ");
-  for(int i=0;i<inputLength;i++)
-    printf("[%d] ", inputArray[i]);
-  printf("\n");*/
+ 
   ////////////////////////////////////////////////////////////////////////
 
   //// Now we will add edges to their designated nodes.     A 4 n 0 2 5 3 3  n 2 0 4 1 1  n 1 3 7 0 2
