@@ -110,6 +110,6 @@ k++;
 
 freeEdges();
 freeNodes();
-
+free(inputArray);
 return 0;
 }
