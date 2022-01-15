@@ -48,6 +48,7 @@ void interpret(char *data){
  }
  d = data;
 // counter+1 has number of cells in inputArray
+ 
  inputArray = calloc((counter+1), sizeof(int));
  inputLength = counter;
  int m = 1, i=0;

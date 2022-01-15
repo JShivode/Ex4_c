@@ -65,3 +65,14 @@ void printEdgesColor(pedge ed, pedge ec){
   printf("| \n");
   free(edg);  
 }
+
+void delEdges(pnode n){
+  pedge it = n->edges;
+  while (it != NULL)
+  {
+    pedge temp = it;
+    it=it->next;
+    free(temp);
+  }
+  n->edges = NULL;
+}

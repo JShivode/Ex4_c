@@ -15,6 +15,7 @@ void add_edge(pedge edge, pnode node);
 void printNodes();
 void printEdges(pedge ed);
 void freeEdges();
+void delEdges(pnode n);
 void freeNodes();
 void buildGraph(char *data);
 int shortest_path(int src, int dst);

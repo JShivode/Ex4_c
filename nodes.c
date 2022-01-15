@@ -11,39 +11,56 @@ int addNode (char *ndstr){  //ndstr is the string without B.
   int node_num = *str - '0';
   int res = 0;
   str++;
-  pnode newNode;
+  pnode newNode =  NULL;
+  
   //if node is not already in graph  first add it.
   if(get_node_by_id(node_num) == NULL){
-    //we will just add it to the head of the list, it's easier.    
     newNode = malloc(sizeof(struct GRAPH_NODE_));
-    if(newNode == NULL)
-       perror("Memory fault: ");
+    //if(newNode == NULL)
+      // perror("Memory fault: ");
+    //we will just add it to the head of the list, it's easier.            
+    newNode->edges = NULL;
+    newNode->node_weight=10000;
+    newNode->color=0;
+    newNode->node_num=node_num;
     newNode->next = nodes;
     nodes = newNode;
     }// if node is not already in graph! end
-    else{    
+    else{      
     newNode = get_node_by_id(node_num);
+    delEdges(newNode);
     res = 1;
     }
-    newNode->node_num = node_num;
-    pedge edgPointer;
-    newNode->edges = malloc(sizeof(struct edge_));
-    if(newNode->edges == NULL)
-      perror("Memory fault: ");
+    pedge edgPointer=NULL;
+    if(*str != '\0')
+      {
+       newNode->edges = malloc(sizeof(struct edge_));
+      // if(newNode->edges == NULL)
+        //  perror("Memory fault: ");
+        newNode->edges->next = NULL;
+        newNode->edges->endpoint = NULL;
+        newNode->edges->weight=10000;
+      }
     edgPointer = newNode->edges;
-    pedge prv = edgPointer;
+    pedge prv = NULL;
     while(*str != '\0' && *str != '\n' && *str != '\r')
     {                            
        edgPointer->endpoint = get_node_by_id((int)(*str -'0'));
+       
        str++;     
        edgPointer->weight = (int)(*str - '0');  
        edgPointer->next = malloc(sizeof(struct edge_));
-       if(edgPointer->next == NULL)
-          perror("Memory fault: ");
+     //  if(edgPointer->next == NULL)
+       //   perror("Memory fault: ");
+       edgPointer->next->endpoint = NULL;
+       edgPointer->next->next = NULL;
+       edgPointer->next->weight = 10000;
        prv = edgPointer;
        edgPointer = edgPointer->next;  
        str++;     
     }  
+    if(nodes->edges != NULL)
+       free(edgPointer);
      prv->next = NULL; 
   return res;
 }
@@ -51,10 +68,8 @@ int addNode (char *ndstr){  //ndstr is the string without B.
 
 void deleteNode(int node_num){
   //if node doesn't exist..return.
- // printf("deleteNode() triggerred nod_num=%d!\n",node_num);
   if(get_node_by_id(node_num) == NULL)
   {
-  //  printf("node to delete not found! #%d\n", node_num);
     return ;
   }
   //handle incoming edges. (wipe them)
@@ -109,6 +124,7 @@ void deleteNode(int node_num){
     
   }
   //now wipe node
+  delEdges(get_node_by_id(node_num));
   nodes_list = nodes;
   pnode prvNode = nodes;
   if(nodes_list->node_num == node_num) // if first node is the one to be deleted.

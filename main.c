@@ -15,6 +15,8 @@ int graphInfoSize = MAX_SIZE;
 char dt[graphInfoSize];
 int k;
 char tmp[6];
+for(int p = 0; p<6 ; p++)
+   tmp[p] = '\0';
 first:
 graphInfoSize = 0;
 for(int i=0;i<MAX_SIZE;i++)
@@ -43,7 +45,8 @@ int kx=0;
 ///////////////////
 if(mat[k] == 'B'){   // B 5 0 4 2 1    we send --> 50421
 k++;
-for(int j=0;j<10;j++){
+for(int j=0;j<10;j++)
+{
 if(mat[k+j] == ' ') {continue;}
 tmp[kx] = mat[k+j];
 kx++;
@@ -91,6 +94,8 @@ if(mat[k] == 'T')
    if(mat[k] == 'A')
    {
      char matt[MAX_SIZE] ;
+     for(int p=0; p<MAX_SIZE; p++)
+       matt[p] ='\0';
      int j=0;
      while(mat[k] != '\0'){
        matt[j] = mat[k];
@@ -101,6 +106,7 @@ if(mat[k] == 'T')
      //printf("going first:%s\n",matt);
      freeEdges();
      freeNodes();
+     free(inputArray);
      strcpy(mat, matt);
      goto first;
    }
