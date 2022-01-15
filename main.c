@@ -108,17 +108,8 @@ k++;
 }
 /////////////////
 
-//printNodes();
+freeEdges();
+freeNodes();
 
-
-//freeEdges();
-/*
-pnode del = nodes;
-while(nodes!=NULL){
-    nodes=nodes->next;
-    free(del);
-    del = nodes;
-}
-*/
 return 0;
 }
