@@ -83,6 +83,7 @@ void interpret(char *data){
  d++; 
 }
 d = data;
+free(inputArray);
 }
 
 
