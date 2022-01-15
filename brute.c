@@ -138,7 +138,7 @@ int s(int a, int b,int silent){
   int result = brute(get_node_by_id(a), get_node_by_id(b));
   if (result == 10000)
      result = -1;
-    printf("Dijsktra shortest path:%d \n", result);   //we need this function to run silently..no prints!!   
+    printf("Dijsktra shortest path:%d \n ", result);   //we need this function to run silently..no prints!!   
   return 0;
   }
   
