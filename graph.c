@@ -9,60 +9,7 @@
 
 void interpret(char *data){
  // initial handling.
- int counter = 0;
- numOfNodes = 0 ;
- if(*data == 'A')
- {   
-   data+=2;
-  // printf("found A. data[2] = %c\n", *(data));
- }
- else return;
- /*     get number of nodes in the graph     */
- ////////////////////////////////////////////
- int x = 1, result=0;
- while(*data!=' '){
-   if(x==10){
-    result = result*x+ ((int)(*data-'0'));
-    }
-    else  
-    {
-      result+=((int)(*data-'0')) *x;      
-    }
-    x*=10;
-    data++;
- }
- numOfNodes = result;
- 
- ////////////////////////////////////////////////
-/*     get length of char array containing input    */
- data++;
- char* d =data;
- 
- //input is space separated.
- while(*d != '\0' && *d != '\r' && *d != '\n' )
- {
-   if(*d == ' ')
-     counter++;
-   d++;
- }
- d = data;
-// counter+1 has number of cells in inputArray
- inputArray = calloc((counter), sizeof(int));
- inputLength = counter;
- int m = 1, i=0;
- while(*d != '\0' && *d != '\r' && *d != '\n')
- { //loop through all data string..
- if(*d == '\0') #ifndef GRAPH_C
-#define GRAPH_C
-
-#include <stdlib.h>
-#include "graph.h"
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-/*   This will turn input char array into int array containing info how to build the graph */ 
-
-void interpret(char *data){
- // initial handling.
+ //printf("graph string=%s", data);
  int counter = 0;
  numOfNodes = 0 ;
  if(*data == 'A')
@@ -136,8 +83,6 @@ void interpret(char *data){
  d++; 
 }
 d = data;
-
-printf("\n");
 }
 
 
@@ -150,27 +95,26 @@ void buildGraph(char *data){
   ////first we will create nodes list. from input, no edges yet.
   int idx=0;
   
-  printf("numOfNodes=%d\n",numOfNodes);
-  nodes = malloc(sizeof(struct GRAPH_NODE_));
-  if(nodes == NULL)
-      perror("memory erros:\n");
-  nodes->edges = NULL;
-  nodes->node_num = 0;
-  nodes->next = NULL;
-  for(int i=1; i<numOfNodes;i++){
+  //printf("numOfNodes=%d\n",numOfNodes);
+  nodes = NULL;//malloc(sizeof(struct GRAPH_NODE_));
+  //if(nodes == NULL)
+    //  perror("memory erros:\n");
+  //nodes->edges = NULL;
+  //nodes->node_num = 0;
+  //nodes->next = NULL;
+  for(int i=0; i<numOfNodes;i++){
     pnode newNode = malloc(sizeof(struct GRAPH_NODE_));
     if(newNode == NULL)
       perror("memory erros:\n");
     newNode->edges = NULL;
     newNode->node_num=i;
-    pnode tempNode = nodes;
+    newNode->next = nodes;
     nodes = newNode;
-    nodes->next = tempNode;
   }
-  printf("\ninputArray= ");
+  /*printf("\ninputArray= ");
   for(int i=0;i<inputLength;i++)
     printf("[%d] ", inputArray[i]);
-  printf("\n");
+  printf("\n");*/
   ////////////////////////////////////////////////////////////////////////
 
   //// Now we will add edges to their designated nodes.     A 4 n 0 2 5 3 3  n 2 0 4 1 1  n 1 3 7 0 2
@@ -208,6 +152,17 @@ void buildGraph(char *data){
   }
 }
 
+void freeNodes(){
+  pnode hd = nodes;
+  nodes = nodes->next;
+  while(nodes != NULL)
+  {
+    free(hd);
+    hd = nodes;
+    nodes = nodes->next;
+  }
+  free(hd);
+}
 
 void freeEdges(){
    pnode cnodes = nodes;
